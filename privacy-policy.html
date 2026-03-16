@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — Salesforce Playground</title>
+<meta name="description" content="Privacy Policy for Salesforce Playground Chrome Extension."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0B0B16;
+  --bg2:       #0F0F1F;
+  --surface:   #181830;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.12);
+  --blue:      #0176D3;
+  --blue-glow: rgba(1,118,211,0.35);
+  --cyan:      #00C8E0;
+  --text:      #E8E8F0;
+  --text-muted:#8888A8;
+  --mono:      'JetBrains Mono', monospace;
+  --sans:      'Syne', sans-serif;
+  --transition: 0.3s cubic-bezier(0.25,0.8,0.25,1);
+}
+
+[data-theme="light"] {
+  --bg:        #F4F4FA;
+  --bg2:       #EAEAF4;
+  --surface:   #FFFFFF;
+  --border:    rgba(0,0,0,0.08);
+  --border2:   rgba(0,0,0,0.14);
+  --text:      #1A1A2E;
+  --text-muted:#5A5A7A;
+  --cyan:      #0176D3;
+}
+
+[data-theme="light"] .page-label {
+  color: #0176D3;
+  background: rgba(1,118,211,0.08);
+  border-color: rgba(1,118,211,0.25);
+}
+[data-theme="light"] .highlight-box {
+  color: #0176D3;
+  background: rgba(1,118,211,0.06);
+  border-color: rgba(1,118,211,0.2);
+}
+[data-theme="light"] .nav-links a { color: #2a2a4a; }
+[data-theme="light"] .nav-links a:hover { color: #0176D3; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 64px;
+  background: rgba(11,11,22,0.8);
+  backdrop-filter: blur(16px) saturate(1.5);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+[data-theme="light"] nav { background: rgba(244,244,250,0.85); }
+
+.nav-logo {
+  display: flex; align-items: center; gap: .65rem;
+  text-decoration: none; color: var(--text);
+}
+.nav-logo-icon {
+  width: 36px; height: 36px;
+  background: #1a1f2e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.nav-logo-text {
+  font-size: .85rem; font-weight: 700;
+  letter-spacing: .08em; line-height: 1;
+}
+.logo-sf { color: var(--text); }
+.logo-pg { color: var(--cyan); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none; color: var(--text-muted); font-size: .875rem;
+  font-weight: 500; letter-spacing: .02em;
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--text); }
+
+
+/* ─── CONTENT ─── */
+.page-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 120px 2rem 80px;
+}
+
+.page-label {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--mono); font-size: .75rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--cyan);
+  background: rgba(0,200,224,0.08);
+  border: 1px solid rgba(0,200,224,0.2);
+  border-radius: 999px;
+  padding: .35rem .9rem;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  margin-bottom: .75rem;
+}
+
+.last-updated {
+  font-size: .875rem;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  font-family: var(--mono);
+}
+
+.policy-section {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.policy-section h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--text);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+
+.policy-section h2 .section-icon {
+  width: 28px; height: 28px;
+  background: rgba(1,118,211,0.12);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+
+.policy-section p {
+  color: var(--text-muted);
+  font-size: .95rem;
+  line-height: 1.8;
+  margin-bottom: .75rem;
+}
+.policy-section p:last-child { margin-bottom: 0; }
+
+.policy-section ul {
+  list-style: none;
+  margin: .5rem 0 .75rem;
+  display: flex; flex-direction: column; gap: .5rem;
+}
+
+.policy-section ul li {
+  display: flex; align-items: flex-start; gap: .6rem;
+  color: var(--text-muted);
+  font-size: .95rem;
+  line-height: 1.7;
+}
+
+.policy-section ul li::before {
+  content: '✓';
+  color: var(--cyan);
+  font-weight: 700;
+  font-family: var(--mono);
+  flex-shrink: 0;
+  margin-top: .1rem;
+}
+
+.highlight-box {
+  background: rgba(0,200,224,0.06);
+  border: 1px solid rgba(0,200,224,0.18);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  font-size: .9rem;
+  color: var(--cyan);
+  margin-top: 1rem;
+  font-family: var(--mono);
+  line-height: 1.6;
+}
+
+.contact-link {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,200,224,0.3);
+  transition: border-color var(--transition);
+}
+.contact-link:hover { border-color: var(--cyan); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 2.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: .85rem;
+}
+
+footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo" aria-label="Salesforce Playground">
+    <div class="nav-logo-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3C9.5 3 7.5 4.5 6.7 6.6C5.6 6.2 4.3 6.6 3.5 7.5C2.6 8.5 2.5 10 3.2 11.1C2.5 11.6 2 12.5 2 13.5C2 15.4 3.6 17 5.5 17H18.5C20.4 17 22 15.4 22 13.5C22 12 21 10.8 19.6 10.3C19.8 9.8 20 9.3 20 8.7C20 6.6 18.3 5 16.2 5C15.6 5 15 5.2 14.5 5.5C13.9 4 13 3 12 3Z" fill="#8899aa" opacity="0.6"/>
+        <path d="M13 11H16L11 21V14H8L13 4V11Z" fill="#f97316"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text"><span class="logo-sf">SALESFORCE</span> <span class="logo-pg">PLAYGROUND</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li><a href="index.html#how">How it works</a></li>
+    <li><a href="index.html#metadata">Metadata</a></li>
+    <li><a href="index.html#screenshots">Demo</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+  </ul>
+</nav>
+
+<!-- ─── CONTENT ─── -->
+<main class="page-wrap">
+
+  <div class="page-label">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Privacy Policy
+  </div>
+
+  <h1>Your privacy, fully protected.</h1>
+  <p class="last-updated">Last updated: March 2026</p>
+
+  <div class="policy-section">
+    <h2><span class="section-icon">👋</span> Overview</h2>
+    <p>Salesforce Playground is a Chrome Extension that provides an in-browser IDE for Salesforce developers. This policy explains what data we access, how it is used, and our commitment to your privacy.</p>
+    <div class="highlight-box">⚡ Short version: We collect nothing. Everything runs locally in your browser.</div>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-icon">🔒</span> Data We Do NOT Collect</h2>
+    <p>Salesforce Playground does not collect, store, transmit, or share any personal data. Specifically, we never collect:</p>
+    <ul>
+      <li>Your Salesforce credentials, session tokens, or org details</li>
+      <li>Code, metadata, or files you view or edit</li>
+      <li>SOQL queries or API responses</li>
+      <li>Usage analytics, telemetry, or crash reports</li>
+      <li>Browser history or tab information</li>
+      <li>Personally identifiable information of any kind</li>
+    </ul>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-icon">⚙️</span> How the Extension Works</h2>
+    <p>All operations performed by Salesforce Playground run entirely within your browser. The extension:</p>
+    <ul>
+      <li>Reads your existing authenticated Salesforce browser session — no login is required</li>
+      <li>Makes API calls directly from your browser to your Salesforce org</li>
+      <li>Never routes data through any external server or proxy</li>
+      <li>Has no backend infrastructure — there is no server that ever sees your data</li>
+    </ul>
+    <p>Your code and credentials never leave your machine.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-icon">🌐</span> Third-Party Services</h2>
+    <p>Salesforce Playground does not integrate with any third-party analytics, advertising, or data collection services.</p>
+    <p>The only network requests made by the extension are the Salesforce API calls that you explicitly initiate — sent directly from your browser to your Salesforce org.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-icon">🔑</span> Permissions</h2>
+    <p>The extension requests only the Chrome permissions necessary to function. These permissions are used solely to interact with the Salesforce tab you are currently viewing and to enable the in-browser IDE capabilities.</p>
+    <p>No permission is used to access data outside of your active Salesforce session.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-icon">🔄</span> Changes to This Policy</h2>
+    <p>If this privacy policy changes in the future, the updated version will be posted here with a revised date. We will never change this policy in a way that compromises your privacy without clear notice.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="section-icon">✉️</span> Contact</h2>
+    <p>Have questions about this privacy policy or how Salesforce Playground handles data?</p>
+    <p>Reach out at <a href="mailto:teamteja3@gmail.com" class="contact-link">teamteja3@gmail.com</a></p>
+  </div>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>© 2026 Salesforce Playground · <a href="index.html">Back to Home</a></p>
+</footer>
+
+<script>
+const html = document.documentElement;
+const navbar = document.getElementById('navbar');
+let dark = true;
+
+function updateNavBg() {
+  navbar.style.background = window.scrollY > 60
+    ? (dark ? 'rgba(11,11,22,0.95)' : 'rgba(244,244,250,0.95)')
+    : (dark ? 'rgba(11,11,22,0.8)'  : 'rgba(244,244,250,0.85)');
+}
+
+function applyTheme(isDark) {
+  html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  dark = isDark;
+  updateNavBg();
+}
+
+const saved = localStorage.getItem('theme');
+if (saved) {
+  applyTheme(saved === 'dark');
+} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+  applyTheme(false);
+}
+
+window.addEventListener('scroll', updateNavBg, { passive: true });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Salesforce Playground — In-Browser IDE for Salesforce Developers</title>
+<meta name="description" content="A Chrome Extension that turns your browser into a full Salesforce IDE. No OAuth, no CLI, no setup. Just click and code."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" aria-label="Salesforce Playground">
+    <div class="nav-logo-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 3C9.5 3 7.5 4.5 6.7 6.6C5.6 6.2 4.3 6.6 3.5 7.5C2.6 8.5 2.5 10 3.2 11.1C2.5 11.6 2 12.5 2 13.5C2 15.4 3.6 17 5.5 17H18.5C20.4 17 22 15.4 22 13.5C22 12 21 10.8 19.6 10.3C19.8 9.8 20 9.3 20 8.7C20 6.6 18.3 5 16.2 5C15.6 5 15 5.2 14.5 5.5C13.9 4 13 3 12 3Z" fill="#8899aa" opacity="0.6"/>
+        <path d="M13 11H16L11 21V14H8L13 4V11Z" fill="#f97316"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text"><span class="logo-sf">SALESFORCE</span> <span class="logo-pg">PLAYGROUND</span></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#metadata">Metadata</a></li>
+    <li><a href="#screenshots">Demo</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <button class="btn-theme" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">🌙</button>
+    <a href="#" class="btn-cta-sm">Add to Chrome — Free</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ─── HERO ─────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="code-bg" aria-hidden="true">public class AccountService {
+    @AuraEnabled(cacheable=true)
+    public static List&lt;Account&gt; getAccounts(String query) {
+        return Database.query(query);
+    }
+    
+    public static void deployMetadata(String componentName) {
+        // Deploy via Metadata API
+        MetadataService.MetadataPort port = new MetadataService.MetadataPort();
+    }
+}
+
+SELECT Id, Name, Industry, AnnualRevenue
+FROM Account WHERE Industry = 'Technology'
+ORDER BY AnnualRevenue DESC LIMIT 50
+
+&lt;template&gt;
+    &lt;lightning-card title="Account Manager"&gt;
+        &lt;lightning-datatable data={accounts} columns={columns}/&gt;
+    &lt;/lightning-card&gt;
+&lt;/template&gt;</div>
+
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-glow2" aria-hidden="true"></div>
+
+<h1 class="hero-headline reveal stagger-1">
+    Your Salesforce IDE. <span class="accent">Right in the Browser.</span>
+  </h1>
+
+  <p class="hero-sub reveal stagger-2">
+    A zero-setup in-browser IDE for Salesforce developers. Read, edit, and deploy metadata across 16+ types — directly from your active browser session. No OAuth. No CLI. No config.
+  </p>
+
+  <a href="#" class="btn-hero reveal stagger-3" aria-label="Add to Chrome">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>
+    Add to Chrome — It's Free
+  </a>
+
+  <div class="hero-meta reveal stagger-4">
+    <span>✓ No account required</span>
+    <span>✓ Works on any Salesforce org</span>
+    <span>✓ 100% local — no data leaves your browser</span>
+  </div>
+
+  <!-- IDE MOCKUP -->
+  <div class="hero-mockup reveal stagger-5" role="img" aria-label="Salesforce Playground IDE interface preview">
+    <div class="mockup-titlebar">
+      <div class="mockup-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="mockup-title">Salesforce Playground · DevSandbox01</div>
+    </div>
+    <div class="mockup-body">
+      <div class="mockup-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Apex Classes</div>
+          <div class="sidebar-item active"><span class="sidebar-icon">📄</span> AccountService</div>
+          <div class="sidebar-item"><span class="sidebar-icon">📄</span> LeadHandler</div>
+          <div class="sidebar-item"><span class="sidebar-icon">📄</span> OpptyUtil</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">LWC</div>
+          <div class="sidebar-item"><span class="sidebar-icon">⚡</span> accountList</div>
+          <div class="sidebar-item"><span class="sidebar-icon">⚡</span> contactCard</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Triggers</div>
+          <div class="sidebar-item"><span class="sidebar-icon">⚙️</span> AccountTrigger</div>
+        </div>
+      </div>
+      <div class="mockup-editor">
+        <div class="editor-tabs">
+          <div class="editor-tab active">
+            <div class="tab-dot" style="background:var(--amber)"></div>
+            AccountService.cls
+          </div>
+          <div class="editor-tab">
+            <div class="tab-dot" style="background:var(--blue-light)"></div>
+            accountList.html
+          </div>
+          <div class="editor-tab">
+            <div class="tab-dot" style="background:var(--green)"></div>
+            AccountTrigger.trigger
+          </div>
+        </div>
+        <div class="code-area">
+          <div class="code-line" style="animation-delay:.05s"><div class="ln">1</div><div class="code-content"><span class="cm">// AccountService — Read &amp; deploy Apex from your browser</span></div></div>
+          <div class="code-line" style="animation-delay:.1s"><div class="ln">2</div><div class="code-content"><span class="kw">public class</span> <span class="cls">AccountService</span> <span class="op">{</span></div></div>
+          <div class="code-line" style="animation-delay:.15s"><div class="ln">3</div><div class="code-content">&nbsp;&nbsp;<span class="kw">@AuraEnabled</span><span class="op">(</span><span class="tx">cacheable</span><span class="op">=</span><span class="kw">true</span><span class="op">)</span></div></div>
+          <div class="code-line hl" style="animation-delay:.2s"><div class="ln">4</div><div class="code-content">&nbsp;&nbsp;<span class="kw">public static</span> <span class="cls">List</span><span class="op">&lt;</span><span class="cls">Account</span><span class="op">&gt;</span> <span class="fn">getAccounts</span><span class="op">(</span><span class="cls">String</span> <span class="tx">soql</span><span class="op">)</span> <span class="op">{</span></div></div>
+          <div class="code-line" style="animation-delay:.25s"><div class="ln">5</div><div class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="cls">Database</span><span class="op">.</span><span class="fn">query</span><span class="op">(</span><span class="tx">soql</span><span class="op">);</span></div></div>
+          <div class="code-line" style="animation-delay:.3s"><div class="ln">6</div><div class="code-content">&nbsp;&nbsp;<span class="op">}</span></div></div>
+          <div class="code-line" style="animation-delay:.35s"><div class="ln">7</div><div class="code-content">&nbsp;</div></div>
+          <div class="code-line" style="animation-delay:.4s"><div class="ln">8</div><div class="code-content">&nbsp;&nbsp;<span class="kw">public static void</span> <span class="fn">updateRevenue</span><span class="op">(</span><span class="cls">Id</span> <span class="tx">acctId</span>, <span class="cls">Decimal</span> <span class="tx">val</span><span class="op">)</span> <span class="op">{</span></div></div>
+          <div class="code-line" style="animation-delay:.45s"><div class="ln">9</div><div class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;<span class="cls">Account</span> <span class="tx">a</span> <span class="op">=</span> <span class="op">[</span><span class="kw">SELECT</span> <span class="tx">Id, AnnualRevenue</span></div></div>
+          <div class="code-line" style="animation-delay:.5s"><div class="ln">10</div><div class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">FROM</span> <span class="cls">Account</span> <span class="kw">WHERE</span> <span class="tx">Id</span> <span class="op">=</span> <span class="op">:</span><span class="tx">acctId</span> <span class="op">];</span></div></div>
+          <div class="code-line" style="animation-delay:.55s"><div class="ln">11</div><div class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tx">a.AnnualRevenue</span> <span class="op">=</span> <span class="tx">val</span><span class="op">;</span></div></div>
+          <div class="code-line" style="animation-delay:.6s"><div class="ln">12</div><div class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">update</span> <span class="tx">a</span><span class="op">;</span></div></div>
+          <div class="code-line" style="animation-delay:.65s"><div class="ln">13</div><div class="code-content">&nbsp;&nbsp;<span class="op">}</span></div></div>
+          <div class="code-line" style="animation-delay:.7s"><div class="ln">14</div><div class="code-content"><span class="op">}</span></div></div>
+        </div>
+        <div class="editor-status">
+          <span class="status-pill">✓ Deployed</span>
+          <span class="status-pill blue">Apex · Line 4</span>
+          <span style="margin-left:auto">UTF-8 · CRLF · AccountService.cls</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── FEATURES ─────────────────────────────────────────────────── -->
+<section id="features">
+  <div class="container">
+    <div class="section-label reveal">Features</div>
+    <h2 class="section-title reveal stagger-1">Everything you need,<br/>nothing you don't.</h2>
+    <p class="section-sub reveal stagger-2">A full developer toolkit built into a Chrome extension — designed for speed, simplicity, and the Salesforce development loop.</p>
+
+    <div class="features-grid">
+
+      <div class="feature-card reveal stagger-1">
+        <div class="feature-icon fi-blue">⚡</div>
+        <div class="feature-title">Zero Setup</div>
+        <div class="feature-desc">No OAuth dance, no SFDX CLI, no config files. Open any Salesforce org in Chrome, click the icon, and you're in. It piggybacks on your existing authenticated browser session.</div>
+      </div>
+
+      <div class="feature-card reveal stagger-2">
+        <div class="feature-icon fi-cyan">🖊️</div>
+        <div class="feature-title">In-Browser IDE</div>
+        <div class="feature-desc">Multi-tab code editor with full syntax highlighting for Apex, HTML, CSS, JavaScript, and XML. Keyboard shortcuts, line numbers, and a clean, distraction-free editing surface.</div>
+      </div>
+
+      <div class="feature-card reveal stagger-3">
+        <div class="feature-icon fi-green">🚀</div>
+        <div class="feature-title">Read &amp; Deploy Metadata</div>
+        <div class="feature-desc">Pull and push 16+ metadata types — Apex, LWC, Aura, Triggers, VF pages, Flows, Permission Sets, Profiles, and more — without leaving the browser tab.</div>
+      </div>
+
+      <div class="feature-card reveal stagger-4">
+        <div class="feature-icon fi-amber">🔍</div>
+        <div class="feature-title">Visual SOQL Builder</div>
+        <div class="feature-desc">Construct and run SOQL queries visually. Browse results inline, then export to CSV, Excel, or JSON — perfect for quick data checks or bulk analysis.</div>
+      </div>
+
+      <div class="feature-card reveal stagger-1">
+        <div class="feature-icon fi-cyan">⚖️</div>
+        <div class="feature-title">Built-in Diff Checker</div>
+        <div class="feature-desc">Side-by-side code diff tool to compare component versions before deploying. See exactly what changed with line-level highlights for additions and deletions.</div>
+      </div>
+
+      <div class="feature-card reveal stagger-2">
+        <div class="feature-icon fi-green">▶️</div>
+        <div class="feature-title">Anonymous Apex Executor</div>
+        <div class="feature-desc">Write and run anonymous Apex snippets directly in the extension. Debug logs appear inline — no Developer Console tab-switching required.</div>
+      </div>
+
+      <div class="feature-card reveal stagger-3">
+        <div class="feature-icon fi-blue">🌐</div>
+        <div class="feature-title">REST API Explorer</div>
+        <div class="feature-desc">Make authenticated Salesforce REST API calls — GET, POST, PATCH, DELETE — from a lightweight request builder. Great for testing API endpoints without Postman.</div>
+      </div>
+
+      <div class="feature-card reveal stagger-4">
+        <div class="feature-icon fi-amber">🎨</div>
+        <div class="feature-title">Dark / Light / System Theme</div>
+        <div class="feature-desc">Full dark-first UI with a light mode and system preference detection. Because your eyes matter after a 10-hour Apex debug session.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── HOW IT WORKS ──────────────────────────────────────────────── -->
+<section id="how">
+  <div class="container">
+    <div class="section-label reveal">How it works</div>
+    <h2 class="section-title reveal stagger-1">Up and running<br/>in 3 clicks.</h2>
+    <p class="section-sub reveal stagger-2">There is no step zero. No installation wizard. No CLI commands. Just you, Chrome, and Salesforce.</p>
+
+    <div class="steps">
+      <div class="step reveal stagger-1">
+        <div class="step-num">
+          <span>🌐</span>
+          <div class="step-counter">1</div>
+        </div>
+        <div class="step-title">Open your Salesforce org</div>
+        <div class="step-desc">Navigate to any Salesforce org — sandbox, production, scratch, or Developer Edition. Any org on salesforce.com, lightning.force.com, or visualforce.com works.</div>
+      </div>
+      <div class="step reveal stagger-2">
+        <div class="step-num">
+          <span>🧩</span>
+          <div class="step-counter">2</div>
+        </div>
+        <div class="step-title">Click the extension icon</div>
+        <div class="step-desc">Hit the Salesforce Playground icon in your Chrome toolbar. It detects your active session automatically — no login prompt, no OAuth popup, no permissions to grant.</div>
+      </div>
+      <div class="step reveal stagger-3">
+        <div class="step-num">
+          <span>⚡</span>
+          <div class="step-counter">3</div>
+        </div>
+        <div class="step-title">Read, edit, and deploy</div>
+        <div class="step-desc">Browse metadata, open files in the editor, make changes, and deploy — all in the same interface. The full loop from read to deploy in seconds.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── METADATA TYPES ────────────────────────────────────────────── -->
+<section id="metadata">
+  <div class="container">
+    <div class="section-label reveal">Metadata Support</div>
+    <h2 class="section-title reveal stagger-1">16+ metadata types<br/>supported.</h2>
+    <p class="section-sub reveal stagger-2">The components you actually work with every day — not an afterthought list.</p>
+
+    <div class="meta-grid">
+      <div class="meta-chip reveal stagger-1"><div class="meta-chip-dot"></div>LWC</div>
+      <div class="meta-chip reveal stagger-2"><div class="meta-chip-dot"></div>Aura Components</div>
+      <div class="meta-chip reveal stagger-3"><div class="meta-chip-dot"></div>Apex Classes</div>
+      <div class="meta-chip reveal stagger-4"><div class="meta-chip-dot"></div>Apex Triggers</div>
+      <div class="meta-chip reveal stagger-1"><div class="meta-chip-dot"></div>LWC Message Channels</div>
+      <div class="meta-chip reveal stagger-2"><div class="meta-chip-dot"></div>Static Resources</div>
+      <div class="meta-chip reveal stagger-3"><div class="meta-chip-dot"></div>Visualforce Pages</div>
+      <div class="meta-chip reveal stagger-4"><div class="meta-chip-dot"></div>Visualforce Components</div>
+      <div class="meta-chip reveal stagger-1"><div class="meta-chip-dot"></div>FlexiPages</div>
+      <div class="meta-chip reveal stagger-2"><div class="meta-chip-dot"></div>Flows</div>
+      <div class="meta-chip reveal stagger-3"><div class="meta-chip-dot"></div>Custom Labels</div>
+      <div class="meta-chip reveal stagger-4"><div class="meta-chip-dot"></div>Layouts</div>
+      <div class="meta-chip reveal stagger-1"><div class="meta-chip-dot"></div>Objects</div>
+      <div class="meta-chip reveal stagger-2"><div class="meta-chip-dot"></div>Permission Sets</div>
+      <div class="meta-chip reveal stagger-3"><div class="meta-chip-dot"></div>Profiles</div>
+      <div class="meta-chip reveal stagger-4"><div class="meta-chip-dot"></div>Queues</div>
+      <div class="meta-chip reveal stagger-1"><div class="meta-chip-dot"></div>Roles</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── SCREENSHOTS ───────────────────────────────────────────────── -->
+<section id="screenshots">
+  <div class="container">
+    <div class="section-label reveal">Demo</div>
+    <h2 class="section-title reveal stagger-1">See it in action.</h2>
+    <p class="section-sub reveal stagger-2">Switch between tools. Every view lives inside the same extension popup.</p>
+
+    <div class="screenshots-tabs reveal stagger-3">
+      <button class="stab active" data-panel="soql">SOQL Builder</button>
+      <button class="stab" data-panel="diff">Diff Checker</button>
+      <button class="stab" data-panel="rest">REST Explorer</button>
+    </div>
+
+    <div class="screenshot-frame reveal stagger-4">
+
+      <!-- SOQL PANEL -->
+      <div class="screenshot-panel active" id="panel-soql">
+        <div class="soql-wrap">
+          <div class="soql-builder-header">
+            🔍 &nbsp;Visual SOQL Builder — Query Editor
+          </div>
+          <div class="soql-row">
+            <span class="soql-kw">SELECT</span>
+            <span class="soql-field">Id</span>
+            <span class="soql-field">Name</span>
+            <span class="soql-field">Industry</span>
+            <span class="soql-field">AnnualRevenue</span>
+            <span class="soql-field">OwnerId</span>
+            <span class="soql-kw">FROM</span>
+            <span class="soql-obj">Account</span>
+          </div>
+          <div class="soql-row">
+            <span class="soql-kw">WHERE</span>
+            <span class="soql-field">Industry</span>
+            <span style="color:var(--text-muted)">= </span>
+            <span class="soql-field" style="color:var(--green)">'Technology'</span>
+            <span class="soql-kw">ORDER BY</span>
+            <span class="soql-field">AnnualRevenue</span>
+            <span style="color:var(--text-muted)">DESC </span>
+            <span class="soql-kw">LIMIT</span>
+            <span style="color:var(--amber)">50</span>
+          </div>
+          <div class="soql-table">
+            <div class="soql-table-head">
+              <span>Id</span><span>Name</span><span>Industry</span><span>AnnualRevenue</span>
+            </div>
+            <div class="soql-table-row">
+              <span style="color:var(--blue-light)">001XX0000ABC</span>
+              <span>Acme Corp</span>
+              <span>Technology</span>
+              <span style="color:var(--amber)">$42,000,000</span>
+            </div>
+            <div class="soql-table-row">
+              <span style="color:var(--blue-light)">001XX0000DEF</span>
+              <span>CloudBase Inc</span>
+              <span>Technology</span>
+              <span style="color:var(--amber)">$18,500,000</span>
+            </div>
+            <div class="soql-table-row">
+              <span style="color:var(--blue-light)">001XX0000GHI</span>
+              <span>DataPath LLC</span>
+              <span>Technology</span>
+              <span style="color:var(--amber)">$9,200,000</span>
+            </div>
+          </div>
+          <div class="soql-export">
+            <span style="font-size:.65rem;color:var(--text-dim);margin-right:.5rem;display:flex;align-items:center;">3 rows returned · Export as:</span>
+            <button class="export-btn">CSV</button>
+            <button class="export-btn">Excel</button>
+            <button class="export-btn">JSON</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIFF PANEL -->
+      <div class="screenshot-panel" id="panel-diff">
+        <div class="diff-wrap">
+          <div class="diff-panel">
+            <div class="diff-header">
+              <span>AccountService.cls</span>
+              <span class="tag old">v1 · org</span>
+            </div>
+            <div class="diff-lines">
+              <div class="diff-line"><div class="diff-ln">1</div><div class="diff-sig"> </div><div class="diff-code"><span class="kw">public class</span> <span class="cls">AccountService</span> {</div></div>
+              <div class="diff-line"><div class="diff-ln">2</div><div class="diff-sig"> </div><div class="diff-code">&nbsp;&nbsp;<span class="cm">// fetch accounts</span></div></div>
+              <div class="diff-line del"><div class="diff-ln">3</div><div class="diff-sig">−</div><div class="diff-code">&nbsp;&nbsp;<span class="kw">public static</span> <span class="fn">getAll</span>() {</div></div>
+              <div class="diff-line del"><div class="diff-ln">4</div><div class="diff-sig">−</div><div class="diff-code">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> [<span class="kw">SELECT</span> Id <span class="kw">FROM</span> <span class="cls">Account</span>];</div></div>
+              <div class="diff-line"><div class="diff-ln">5</div><div class="diff-sig"> </div><div class="diff-code">&nbsp;&nbsp;}</div></div>
+              <div class="diff-line"><div class="diff-ln">6</div><div class="diff-sig"> </div><div class="diff-code">}</div></div>
+            </div>
+          </div>
+          <div class="diff-panel">
+            <div class="diff-header">
+              <span>AccountService.cls</span>
+              <span class="tag new">v2 · local</span>
+            </div>
+            <div class="diff-lines">
+              <div class="diff-line"><div class="diff-ln">1</div><div class="diff-sig"> </div><div class="diff-code"><span class="kw">public class</span> <span class="cls">AccountService</span> {</div></div>
+              <div class="diff-line"><div class="diff-ln">2</div><div class="diff-sig"> </div><div class="diff-code">&nbsp;&nbsp;<span class="cm">// fetch accounts</span></div></div>
+              <div class="diff-line add"><div class="diff-ln">3</div><div class="diff-sig">+</div><div class="diff-code">&nbsp;&nbsp;<span class="kw">@AuraEnabled(cacheable=true)</span></div></div>
+              <div class="diff-line add"><div class="diff-ln">4</div><div class="diff-sig">+</div><div class="diff-code">&nbsp;&nbsp;<span class="kw">public static</span> <span class="cls">List</span>&lt;<span class="cls">Account</span>&gt; <span class="fn">getAll</span>() {</div></div>
+              <div class="diff-line add"><div class="diff-ln">5</div><div class="diff-sig">+</div><div class="diff-code">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> [<span class="kw">SELECT</span> Id, Name, Industry <span class="kw">FROM</span> <span class="cls">Account</span>];</div></div>
+              <div class="diff-line"><div class="diff-ln">6</div><div class="diff-sig"> </div><div class="diff-code">&nbsp;&nbsp;}</div></div>
+              <div class="diff-line"><div class="diff-ln">7</div><div class="diff-sig"> </div><div class="diff-code">}</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REST PANEL -->
+      <div class="screenshot-panel" id="panel-rest">
+        <div class="rest-wrap">
+          <div class="soql-builder-header" style="border-bottom:1px solid var(--border);padding-bottom:.5rem;">
+            🌐 &nbsp;REST API Explorer
+          </div>
+          <div class="rest-url-bar">
+            <div class="rest-method">GET</div>
+            <div class="rest-url">/services/data/v59.0/sobjects/Account/describe</div>
+            <button class="rest-send">Send</button>
+          </div>
+          <div class="rest-body">
+            <div style="color:var(--text-dim);font-size:.62rem;margin-bottom:.5rem;letter-spacing:.06em;text-transform:uppercase;">Request Headers</div>
+            <div style="color:var(--text-muted);"><span style="color:var(--cyan)">Authorization</span>: Bearer <span style="color:var(--green)">••••••••••••</span></div>
+            <div style="color:var(--text-muted);"><span style="color:var(--cyan)">Content-Type</span>: <span style="color:var(--str)">application/json</span></div>
+          </div>
+          <div class="rest-response">
+            <div style="color:var(--text-dim);font-size:.62rem;margin-bottom:.5rem;letter-spacing:.06em;text-transform:uppercase;">200 OK · 124ms</div>
+            <div><span class="kw">"name"</span>: <span class="str">"Account"</span>,</div>
+            <div><span class="kw">"label"</span>: <span class="str">"Account"</span>,</div>
+            <div><span class="kw">"queryable"</span>: <span class="num">true</span>,</div>
+            <div><span class="kw">"createable"</span>: <span class="num">true</span>,</div>
+            <div><span class="kw">"fields"</span>: [ <span style="color:var(--text-dim)">/* 72 fields */</span> ]</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── FAQ ───────────────────────────────────────────────────────── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label reveal">FAQ</div>
+    <h2 class="section-title reveal stagger-1">Common questions,<br/>straight answers.</h2>
+
+    <div class="faq-grid">
+
+      <div class="faq-item reveal stagger-1">
+        <div class="faq-q">
+          <div class="faq-q-icon">Q</div>
+          Is my Salesforce data safe?
+        </div>
+        <div class="faq-a">Everything runs locally inside your browser. All API calls go directly from your browser to Salesforce — no proxy, no backend server, no third-party ever sees your data. Your code and credentials never leave your machine.</div>
+      </div>
+
+      <div class="faq-item reveal stagger-2">
+        <div class="faq-q">
+          <div class="faq-q-icon">Q</div>
+          Do I need to log in or set up OAuth?
+        </div>
+        <div class="faq-a">No. The extension reads your existing authenticated browser session automatically. If you're logged into Salesforce in the current Chrome tab, Salesforce Playground can access that org instantly — no additional login or permission grant required.</div>
+      </div>
+
+      <div class="faq-item reveal stagger-3">
+        <div class="faq-q">
+          <div class="faq-q-icon">Q</div>
+          Which Salesforce orgs are supported?
+        </div>
+        <div class="faq-a">Any org you can open in a Chrome tab: <code style="font-family:var(--mono);font-size:.8em;background:rgba(1,118,211,0.1);padding:.1rem .3rem;border-radius:4px;">salesforce.com</code>, <code style="font-family:var(--mono);font-size:.8em;background:rgba(1,118,211,0.1);padding:.1rem .3rem;border-radius:4px;">my.salesforce.com</code>, <code style="font-family:var(--mono);font-size:.8em;background:rgba(1,118,211,0.1);padding:.1rem .3rem;border-radius:4px;">lightning.force.com</code>, and <code style="font-family:var(--mono);font-size:.8em;background:rgba(1,118,211,0.1);padding:.1rem .3rem;border-radius:4px;">visualforce.com</code> — including sandboxes, scratch orgs, developer orgs, and production.</div>
+      </div>
+
+      <div class="faq-item reveal stagger-4">
+        <div class="faq-q">
+          <div class="faq-q-icon">Q</div>
+          Is it free?
+        </div>
+        <div class="faq-a">Yes — completely free, no strings attached. No freemium tier, no feature gates, no usage caps. The full extension with all 16 metadata types, the SOQL builder, diff tool, Apex executor, and REST explorer is free forever.</div>
+      </div>
+
+      <div class="faq-item reveal stagger-1">
+        <div class="faq-q">
+          <div class="faq-q-icon">Q</div>
+          Does it work offline or need a server?
+        </div>
+        <div class="faq-a">The extension itself has no build step and no backend server dependency. All logic runs locally inside the Chrome extension runtime. The only network calls it makes are the Salesforce API requests you initiate — to your org, from your browser, directly.</div>
+      </div>
+
+      <div class="faq-item reveal stagger-2">
+        <div class="faq-q">
+          <div class="faq-q-icon">Q</div>
+          Can it replace VS Code + SFDX for daily work?
+        </div>
+        <div class="faq-a">For quick edits, hotfixes, SOQL exploration, API testing, and single-file deployments — absolutely. For complex multi-package DX projects with full CI/CD, VS Code remains the best fit. Salesforce Playground is your browser-native sidekick, not a replacement for full project development.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── CTA ───────────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-badge" style="justify-content:center;margin-bottom:1.5rem;">Free Chrome Extension · No Account Required</div>
+      <h2 class="cta-title">Stop switching tabs.<br/>Start shipping faster.</h2>
+      <p class="cta-sub">Every Salesforce org you open, a full IDE away — one click.</p>
+      <a href="#" class="btn-hero" style="font-size:1rem;padding:.9rem 2rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>
+        Add to Chrome — It's Free
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo-icon" style="width:36px;height:36px;font-size:16px;">⚡</div>
+        <div class="footer-brand-text">
+          <strong>Salesforce Playground</strong>
+          <small>The in-browser IDE for Salesforce developers.</small>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#" aria-label="Chrome Web Store">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>
+          Chrome Web Store
+        </a>
+        <a href="#" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="privacy-policy.html" aria-label="Privacy Policy">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Privacy Policy
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
